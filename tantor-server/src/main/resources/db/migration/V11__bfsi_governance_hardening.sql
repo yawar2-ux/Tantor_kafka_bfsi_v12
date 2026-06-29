@@ -164,6 +164,18 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     user_agent     VARCHAR(255),
     created_at     TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+-- V1 creates audit_logs with user_id/entity_type/entity_id/details. Normalize
+-- the legacy table before V11 creates indexes and immutability triggers.
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS actor VARCHAR(150);
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS actor_role VARCHAR(50);
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS resource_type VARCHAR(40);
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS resource_id VARCHAR(120);
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS environment VARCHAR(20);
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS old_value TEXT;
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS new_value TEXT;
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS status VARCHAR(30);
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS approval_id UUID;
+ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS user_agent VARCHAR(255);
 CREATE INDEX IF NOT EXISTS idx_audit_actor ON audit_logs(actor);
 CREATE INDEX IF NOT EXISTS idx_audit_action ON audit_logs(action);
 CREATE INDEX IF NOT EXISTS idx_audit_created ON audit_logs(created_at);
