@@ -6,6 +6,10 @@
 -- All statements are idempotent-safe for re-run on partially migrated DBs.
 -- =====================================================================
 
+-- Required by the UUID seed statements below on PostgreSQL versions where
+-- gen_random_uuid() is provided by pgcrypto rather than core PostgreSQL.
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 -- ---------------------------------------------------------------------
 -- 1. RBAC : add APPROVER role + fine-grained permissions
 -- ---------------------------------------------------------------------
@@ -134,6 +138,10 @@ CREATE TABLE IF NOT EXISTS approval_requests (
     decided_at       TIMESTAMP WITH TIME ZONE,
     expires_at       TIMESTAMP WITH TIME ZONE
 );
+-- V10 creates approval_requests with the production-readiness shape. When
+-- upgrading that schema, CREATE TABLE IF NOT EXISTS does not add V11 columns.
+ALTER TABLE approval_requests
+    ADD COLUMN IF NOT EXISTS job_id UUID REFERENCES job_master(id) ON DELETE SET NULL;
 CREATE INDEX IF NOT EXISTS idx_approval_status ON approval_requests(status);
 CREATE INDEX IF NOT EXISTS idx_approval_job ON approval_requests(job_id);
 
