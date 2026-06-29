@@ -34,7 +34,7 @@ server.log
 server.err
 
 # Artifacts and Heavy Files
-repository/
+/repository/
 test.tgz
 
 # Compiled Go binaries
