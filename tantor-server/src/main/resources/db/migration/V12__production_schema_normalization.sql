@@ -300,8 +300,8 @@ $$ LANGUAGE plpgsql;
 
 DROP TRIGGER IF EXISTS audit_no_update ON audit_logs;
 CREATE TRIGGER audit_no_update BEFORE UPDATE ON audit_logs
-    FOR EACH ROW EXECUTE FUNCTION trg_audit_immutable();
+    FOR EACH ROW EXECUTE PROCEDURE trg_audit_immutable();
 
 DROP TRIGGER IF EXISTS audit_no_delete ON audit_logs;
 CREATE TRIGGER audit_no_delete BEFORE DELETE ON audit_logs
-    FOR EACH ROW EXECUTE FUNCTION trg_audit_immutable();
+    FOR EACH ROW EXECUTE PROCEDURE trg_audit_immutable();
