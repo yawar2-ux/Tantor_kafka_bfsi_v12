@@ -112,6 +112,7 @@ ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS user_agent VARCHAR(255);
 ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS entity_type VARCHAR(50);
 ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS entity_id VARCHAR(100);
 ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS details JSONB;
+ALTER TABLE audit_logs ALTER COLUMN entity_type DROP NOT NULL;
 -- Temporarily remove immutable triggers while normalizing legacy rows during migration.
 DROP TRIGGER IF EXISTS audit_no_update ON audit_logs;
 DROP TRIGGER IF EXISTS audit_no_delete ON audit_logs;
