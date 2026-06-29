@@ -1,0 +1,43 @@
+# Build and compiled files
+target/
+*.jar
+*.exe
+*.class
+
+# Node and UI
+node_modules/
+dist/
+build/
+.env
+
+# Go
+tantor-agent.exe
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.iml
+*.iws
+
+# Logs
+logs/
+.runtime/
+*.log
+
+# Portable / Local Installations
+apache-maven-*/
+apache-maven-*.zip
+go/
+go*.windows-amd64.zip
+jdk-21.0.3+9/
+server.log
+server.err
+
+# Artifacts and Heavy Files
+repository/
+test.tgz
+
+# Compiled Go binaries
+tantor-agent/tantor-agent-bin
+tantor-agent/tantor-agent-linux*
+tantor-discovery-agent/tantor-discovery-agent-linux*

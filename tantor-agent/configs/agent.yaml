@@ -1,0 +1,17 @@
+agent:
+  host_id: "agent-node-196"
+  server_url: "http://192.168.3.142:8443"
+  cert_file: "/etc/tantor/certs/agent.crt"
+  key_file: "/etc/tantor/certs/agent.key"
+  ca_cert: "/etc/tantor/certs/ca.crt"
+  # Must match TANTOR_AGENT_TOKEN configured on the control-plane server.
+  # Prefer injecting this from a secret manager or environment-specific config.
+  agent_token: "CHANGE_ME_AGENT_BOOTSTRAP_TOKEN_32_CHARS_MIN"
+  insecure_skip_verify: false
+  poll_interval_seconds: 10
+  log_level: "INFO"
+
+paths:
+  data_dir: "/var/lib/tantor/agent/data"
+  log_dir: "/var/log/tantor"
+  artifacts_dir: "/var/lib/tantor/agent/artifacts"
